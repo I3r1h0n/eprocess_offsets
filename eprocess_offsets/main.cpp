@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 
-DWORD eprocessOffsets[5][4] = {
-    {26100, 0x1d0, 0x1d8, 0x248}, // Change from 24H2
-    {19041, 0x440, 0x448, 0x4b8}, // Change from 20H1
-    {18362, 0x2e8, 0x2f0, 0x360}, // Change from 19H1
-    {15063, 0x2e0, 0x2e8, 0x358}, // Offsets change starting from 1703
-    {0, 0x2e8, 0x2f0, 0x358},     // Basic offsets begining from 1507
+DWORD eprocessOffsets[5][6] = {
+    {26100, 0x1d0, 0x1d8, 0x248, 0x2e0, 0x5fa}, // Change from 24H2
+    {19041, 0x440, 0x448, 0x4b8, 0x550, 0x87a}, // Change from 20H1
+    {18362, 0x2e8, 0x2f0, 0x360, 0x3f8, 0x6fa}, // Change from 19H1
+    {15063, 0x2e0, 0x2e8, 0x358, 0x3f8, 0x6ca}, // Offsets change starting from 1703
+    {0, 0x2e8, 0x2f0, 0x358, 0x3f8, 0x6c2},     // Basic offsets begining from 1507
 };
 
 BOOL GetSystemBuild(DWORD* CurrentBuild) {
@@ -44,6 +44,8 @@ int ObtainOffsets(DWORD* offsets) {
             offsets[0] = eprocessOffsets[i][1];
             offsets[1] = eprocessOffsets[i][2];
             offsets[2] = eprocessOffsets[i][3];
+            offsets[3] = eprocessOffsets[i][4];
+            offsets[4] = eprocessOffsets[i][5];
             return 0;
         }
     }
@@ -52,22 +54,26 @@ int ObtainOffsets(DWORD* offsets) {
     offsets[0] = eprocessOffsets[3][1];
     offsets[1] = eprocessOffsets[3][2];
     offsets[2] = eprocessOffsets[3][3];
+    offsets[3] = eprocessOffsets[3][4];
+    offsets[4] = eprocessOffsets[3][5];
 
     return 0;
 }
 
 int main() {
-    printf("[*] _EPROCESS offsets");
+    printf("[*] _EPROCESS offsets\n");
 
     // Get offsets in this order:
-    // { PID, ActiveProcessLinks, Token }
-    DWORD offsets[3] = { NULL };
+    // { PID, ActiveProcessLinks, Token, PEB, Protection }
+    DWORD offsets[5] = { NULL };
     ObtainOffsets(offsets);
 
     // Print offsets
     printf("[*] PID: 0x%llx\n", offsets[0]);
     printf("[*] ActiveProcessList: 0x%llx\n", offsets[1]);
     printf("[*] Token: 0x%llx\n", offsets[2]);
+    printf("[*] PEB: 0x%llx\n", offsets[3]);
+    printf("[*] Protection: 0x%llx\n", offsets[4]);
 
     return 0;
 }
