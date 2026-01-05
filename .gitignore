@@ -1,3 +1,6 @@
+eprocess_offsets_rs/target
+eprocess_offsets_rs/Cargo.lock
+
 # Prerequisites
 *.d
 

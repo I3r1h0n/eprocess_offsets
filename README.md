@@ -30,7 +30,7 @@ _All info was taken from [vergilius project](https://www.vergiliusproject.com) a
 I've also created a xlsx file, and made it colorful, so you can easier see all changes happend to eprocess offsets.
 
 ## Code part
-In eprocess_offsets/ you can find my C implementation of eprocess offsets determinant. I've commented all code, so you can use it in your own projects!
+In this repo you can find my C++ and Rust implementations of eprocess offsets determinant. I've commented all code, so you can use it in your own projects!
 
 ## Creds
 
